@@ -23,33 +23,33 @@ type Story = StoryObj<typeof LikeButton>;
 // Базовый LikeButton (не лайкнутый)
 export const StandardLike: Story = {
   args: {
-    liked: false
+    liked: false,
+    isActive: true
   }
 };
 
 // Лайкнутый LikeButton
 export const LikedButton: Story = {
   args: {
-    liked: true
+    liked: true,
+    isActive: true
   }
 };
 
 // Интерактивный LikeButton с локальным состоянием
 export const Interactive: Story = {
-  render: function Render() {
+  render: (args) => {
     const [isLiked, setIsLiked] = useState(false);
 
     const handleClick = () => {
       setIsLiked(prev => !prev);
     };
 
-    return (
-      <LikeButton
-        liked={isLiked}
-        onClick={handleClick}
-      />
-    );
-  }
+    return <LikeButton {...args} liked={isLiked} onClick={handleClick} />;
+  },
+  args: {
+    isActive: true, // make sure the button is clickable
+  },
 };
 
 // Все состояния в одном месте
@@ -63,12 +63,12 @@ export const AllStates = () => {
       padding: '20px'
     }}>
       <div style={{ textAlign: 'center' }}>
-        <LikeButton liked={false} onClick={() => {}} />
+        <LikeButton liked={false} isActive={true} onClick={() => {}} />
         <p style={{ marginTop: '8px', fontSize: '14px' }}>Неактивный</p>
       </div>
       
       <div style={{ textAlign: 'center' }}>
-        <LikeButton liked={true} onClick={() => {}} />
+        <LikeButton liked={true} isActive={true} onClick={() => {}} />
         <p style={{ marginTop: '8px', fontSize: '14px' }}>Активный</p>
       </div>
     </div>
