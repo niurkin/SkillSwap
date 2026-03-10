@@ -30,6 +30,8 @@ interface IErrorResponse {
   message: string;
 }
 
+const IMGBB_API_KEY = import.meta.env.VITE_IMGBB_API_KEY;
+
 const toPublicUser = (user: IUser): IUserPublic => {
   const {
     email,
@@ -68,11 +70,10 @@ const createNotification = async (
 };
 
 const uploadImageToImgBB = async (file: File): Promise<string> => {
-  const API_KEY = '6114584f51fd63eccd3dae90cc50138c';
   const formData = new FormData();
   formData.append('image', file);
   const response = await fetch(
-    `https://api.imgbb.com/1/upload?key=${API_KEY}`,
+    `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
     {
       method: 'POST',
       body: formData,
